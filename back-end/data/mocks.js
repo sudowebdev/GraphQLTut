@@ -11,6 +11,9 @@ const mocks = {
   }),
   Author: () => ({
     firstName: casual.first_name, lastName: casual.last_name
+  }),
+  Post: () => ({
+    title: casual.title, text: casual.sentences(3)  
   })
 };
 
