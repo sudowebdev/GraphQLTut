@@ -30,9 +30,9 @@ const schema = makeExecutableSchema({
   resolvers
 });
 
-addMockFunctionsToSchema({
-  schema,
-  mocks
-});
+// addMockFunctionsToSchema({
+//   schema,
+//   mocks
+// });
 
 export default schema;
