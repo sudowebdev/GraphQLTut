@@ -6,7 +6,7 @@ import {
 import bodyParser from 'body-parser';
 import schema from './data/schema';
 
-const GRAPHQL_PORT = 3000;
+const GRAPHQL_PORT = 3333;
 
 const graphQLServer = express();
 

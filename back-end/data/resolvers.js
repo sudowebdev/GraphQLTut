@@ -5,12 +5,12 @@ right-hand side. */
  
 // Resolvers are mainly defined for Query's field, but you can define it for any type's field.
 
-import { AuthorModel } from './connectors';
+import { Author, Post } from './connectors';
 
 const resolvers = {
     Query: {
         author(_, args) {
-            return AuthorModel.find({where: args});
+            return Author.find({ where: args });
         },
     },
     Author: {

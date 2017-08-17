@@ -13,55 +13,50 @@ const db = new Sequelize('graphqltut', 'graphqladmin', 'graphqlpass', {
 });
 
 //defining the schema of the table/Model
-const Post = db.define('post', {
-    id: {
-	   type: Sequelize.INTEGER,
- 	   primaryKey: true,
-       autoIncrement: true
-    },
-    title: {
-      type: Sequelize.STRING,
-      allowNull: false,
-      unique: true
-    },
-    text: Sequelize.STRING
-});
-
-const Author = db.define('author', {
-    id: {
-	   type: Sequelize.INTEGER,
-       primaryKey: true,
-       autoIncrement: true
-    },
+const AuthorModel = db.define('author', {
     firstName: {
       type: Sequelize.STRING,
-      allowNull: false,
     },
-    lastName: Sequelize.STRING
+    lastName: {
+      type: Sequelize.STRING,
+    },
+});
+  
+const PostModel = db.define('post', {
+    title: {
+      type: Sequelize.STRING,
+    },
+    text: {
+      type: Sequelize.STRING,
+    },
+    tags: {
+      type: Sequelize.STRING,
+    }
 });
 
 
 
-Author.hasMany(Post);
+// Relations
+AuthorModel.hasMany(PostModel);
+PostModel.belongsTo(AuthorModel);
 
-
-db.sync({force: true})
-     .then(() => {
-         console.log("Database Synchronised");
-         _.times(10, () => {
-             return Author.create({
-                 firstName: casual.first_name,
-                 lastName: casual.last_name
-             }).then( (author) => {
-                return Post.create({
-                    title: casual.title,
-                    text: casual.sentences(3)
-                });
-            });
-        });
+casual.seed(123);
+db.sync({ force: true }).then(()=> {
+  _.times(10, ()=> {
+    return AuthorModel.create({
+      firstName: casual.first_name,
+      lastName: casual.last_name,
+    }).then(author => {
+      return author.createPost({
+        title: `A post by ${author.firstName} ${author.lastName}`,
+        text: casual.sentences(3)
+      })
+    });
+  });
 });
 
-const AuthorModel = db.models.Author;
-const PostModel = db.models.Post;
+const Author = db.models.author;
+const Post = db.models.post;
 
-export default {AuthorModel, PostModel};
+
+export { Author, Post };
