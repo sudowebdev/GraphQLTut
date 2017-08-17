@@ -11,6 +11,16 @@ const resolvers = {
             return {id: 1, firstName: 'Hey', lastName: 'You'};
         },
     },
+    Author: {
+        posts(author) {
+            return [{id: 111, title: 'The New Title', text: 'Good'}];
+        }
+    },
+    Post: {
+        author(post) {
+            return {id: 1, firstName: 'Hey', lastName: 'You'};
+        }
+    }
 }
 
 
