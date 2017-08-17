@@ -6,12 +6,14 @@ import mocks from './mocks'
 
 const typeDefs = `
 type Author {
+  id: Int
   firstName: String
   lastName: String
   posts: [Post]
 }
 
 type Post {
+  id: Int
   title: String
   text: String
   author: Author
